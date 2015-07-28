@@ -1,0 +1,4 @@
+#!/bin/bash
+# Run opscenter agent
+sv -w 15 check cassandra || exit 1
+exec /usr/local/opscenter/datastax-agent*/bin/datastax-agent -f

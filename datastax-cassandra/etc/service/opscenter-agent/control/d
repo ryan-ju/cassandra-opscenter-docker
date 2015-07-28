@@ -1,0 +1,12 @@
+#!/bin/bash
+# Because Opscenter agent starts child process, we need to kill all of them
+# But don't kill "runsv opscenter-agent", otherwise runit will just restart it (and opscenter-agent with it)
+
+# Find the group PID
+PGID=$(ps x -o "pgid,cmd" | grep "opscenter-agent" | awk '{print $1}')
+# Create an array of PIDs related to opscenter-agent, but not the root command
+PIDS=( $(ps x -o "pid,pgid,cmd" | grep -v "run opscenter-agent" | awk '{if ($2 == '$PGID') print $1 }' )
+echo "Opscenter Agent PIDS=${PIDS[@]}"
+for i in "${PIDS[@]}"; do
+  kill -TERM $i
+done

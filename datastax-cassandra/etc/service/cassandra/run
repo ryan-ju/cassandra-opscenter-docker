@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+set -- cassandra -f
+
+exec "$@"
