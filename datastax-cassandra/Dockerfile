@@ -7,14 +7,13 @@ FROM phusion/baseimage:latest
 
 MAINTAINER Misaka
 
-# Install JRE
-## Copy over JRE file
-RUN mkdir -p /tmp/jre/
-COPY jre.tar.gz /tmp/jre/
+# Copy over files
+COPY ./tmp/ /tmp/
 
+# Install JRE
 ## Make directory for JRE
 RUN mkdir -p /usr/lib/jvm
-RUN tar zxvf /tmp/jre/jre* -C /usr/lib/jvm
+RUN tar zxvf /tmp/jre.tar.gz -C /usr/lib/jvm
 ## Update alternatives
 RUN update-alternatives --install "/usr/bin/java" "java" "$(echo /usr/lib/jvm/jre*/bin/java)" 1
 RUN update-alternatives --set java /usr/lib/jvm/jre*/bin/java
@@ -44,13 +43,11 @@ RUN rm -rf /var/lib/cassandra/data/system/*
 RUN apt-get -y install sysstat
 
 ## Copy over tar file
-RUN mkdir -p /tmp/opscenter/
-COPY datastax-agent.tar.gz /tmp/opscenter/
 RUN mkdir -p /usr/local/opscenter
-RUN tar -xzvf /tmp/opscenter/datastax-agent.tar.gz -C /usr/local/opscenter/
+RUN tar -xzvf /tmp/datastax-agent.tar.gz -C /usr/local/opscenter/
 
 # Remove unnecessary files
-RUN rm -r /tmp/jre /tmp/opscenter
+RUN rm /tmp/jre.tar.gz /tmp/datastax-agent.tar.gz
 
 # Add services
 COPY etc/ etc/

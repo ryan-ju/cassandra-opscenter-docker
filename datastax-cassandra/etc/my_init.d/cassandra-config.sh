@@ -17,11 +17,11 @@ if [ "$1" = 'cassandra' ]; then
 		CASSANDRA_LISTEN_ADDRESS="$(hostname --ip-address)"
 	fi
 
-	CASSANDRA_BROADCAST_ADDRESS="$(/sbin/ip route|awk '/default/ {print $3}')"
-
+  # Broadcast address should be the public ip of the host.  The value should be passed as an environment variable when starting docker.
 	if [ "$CASSANDRA_BROADCAST_ADDRESS" = 'auto' ]; then
-		CASSANDRA_BROADCAST_ADDRESS="$(hostname --ip-address)"
+		CASSANDRA_BROADCAST_ADDRESS="$(/sbin/ip route|awk '/default/ {print $3}')"
 	fi
+
 	: ${CASSANDRA_BROADCAST_RPC_ADDRESS:=$CASSANDRA_BROADCAST_ADDRESS}
 
 	CASSANDRA_SEEDS="$CASSANDRA_BROADCAST_ADDRESS"
