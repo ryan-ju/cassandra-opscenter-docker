@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "Please enter tag for the image [default to cassandra-opscenter:2.2]:"
+echo "Please enter tag for the image [default to stackoverflower/datastax-cassandra:2.2]:"
 read TAG
-: ${TAG:="cassandra-opscenter:2.2"}
+: ${TAG:="stackoverflower/datastax-cassandra:2.2"}
 
 OPSCENTER_VERSION=5.2.0
 

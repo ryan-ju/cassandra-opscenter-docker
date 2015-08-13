@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "Please enter Docker image name [default to opscenter:5.2]":
+echo "Please enter Docker image name [default to stackoverflower/datastax-opscenter:5.2]":
 read TAG
-: ${TAG:="opscenter:5.2"}
+: ${TAG:="stackoverflower/datastax-opscenter:5.2"}
 echo "Please enter container name [default to opsc]:"
 read NAME
 : ${NAME:=opsc}

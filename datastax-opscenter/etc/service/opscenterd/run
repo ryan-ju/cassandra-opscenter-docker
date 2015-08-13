@@ -1,2 +1,2 @@
 #!/bin/bash
-exec /etc/init.d/opscenterd start
+exec /usr/share/opscenter/bin/opscenter -f
